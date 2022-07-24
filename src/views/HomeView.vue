@@ -1,5 +1,10 @@
 <template>
-  <div class="about">
-    <h1>This is a home page</h1>
-  </div>
+  <div>You're not supposed to be here!</div>
 </template>
+
+<script>
+export default {};
+</script>
+
+<style>
+</style>

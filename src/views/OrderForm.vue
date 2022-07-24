@@ -1,15 +1,107 @@
 <template>
-  <div>
-    Welcome! Your order will be sent to table {{ location }} in approximately
-    NaN minutes.
+  <div class="pa-3">
+    <v-container fluid>
+      <h1>Menu</h1>
+      <v-row dense>
+        <v-card
+          v-for="menu in sampleMenu"
+          :key="menu.id"
+          max-width="25rem"
+          class="ma-3"
+          outlined
+          tile
+        >
+          <v-card-title>
+            {{ menu.name }}
+          </v-card-title>
+          <v-card-subtitle> ${{ menu.price }} </v-card-subtitle>
+          <img :src="menu.imgURL" class="thumbnail" />
+          <v-card-text>
+            {{ menu.description }}
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="mr-5 mb-2" @click="placeOrder(menu.id)">Order</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-row>
+      <v-row>
+        <v-card width="100%">
+          <v-card-title>Your order</v-card-title>
+          <v-list v-for="(item, index) in order" :key="index">
+            <v-list-item>
+              {{ item.itemName }} $ {{ item.itemPrice }}
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-row>
+      <v-row class="justify-center">
+        <v-btn @click="checkout">Pay Now</v-btn>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
 export default {
   props: ["location"],
+  data: () => ({
+    sampleMenu: [
+      {
+        id: 0,
+        name: "Coffee",
+        price: 4,
+        description: "Soup of the devil.",
+        isInStock: true,
+        imgURL:
+          "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p.jpg",
+      },
+      {
+        id: 1,
+        name: "Tea",
+        price: 1.99,
+        description: "The beverage of the civilized",
+        isInStock: true,
+        imgURL:
+          "https://static.onecms.io/wp-content/uploads/sites/9/2021/06/22/different-types-of-tea-FT-BLOG0621.jpg",
+      },
+      {
+        id: 2,
+        name: "Scones",
+        price: 5.99,
+        description: "Sinful delights",
+        isInStock: true,
+        imgURL:
+          "https://www.christinascucina.com/wp-content/uploads/2012/05/fullsizeoutput_7cc2-735x513.jpeg",
+      },
+      {
+        id: 3,
+        name: "Beer",
+        price: 0.99,
+        description: "Haram",
+        isInStock: false,
+        imgURL: "https://brouwland.com/img/cms/Cat_Beer.jpg",
+      },
+    ],
+    order: [],
+  }),
+  methods: {
+    placeOrder: function (id) {
+      this.order.push({
+        itemName: this.sampleMenu[id].name,
+        itemPrice: this.sampleMenu[id].price,
+      });
+    },
+    checkout: function () {
+      this.$router.push("/checkout/" + this.location);
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.thumbnail {
+  width: 90%;
+  margin-left: 5%;
+}
 </style>

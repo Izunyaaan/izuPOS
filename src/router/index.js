@@ -22,6 +22,11 @@ const routes = [
     path: '/order/:location',
     component: () => import('../views/OrderForm.vue'),
     props: true,
+  },
+  {
+    path: '/checkout/:location',
+    component: () => import('../views/CheckoutView.vue'),
+    props: true,
   }
 ]
 
