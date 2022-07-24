@@ -6,23 +6,36 @@
         <v-card
           v-for="menu in sampleMenu"
           :key="menu.id"
-          max-width="25rem"
+          width="25rem"
           class="ma-3"
           outlined
           tile
         >
-          <v-card-title>
-            {{ menu.name }}
-          </v-card-title>
-          <v-card-subtitle> ${{ menu.price }} </v-card-subtitle>
-          <img :src="menu.imgURL" class="thumbnail" />
-          <v-card-text>
-            {{ menu.description }}
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="mr-5 mb-2" @click="placeOrder(menu.id)">Order</v-btn>
-          </v-card-actions>
+          <v-row>
+            <v-col>
+              <img :src="menu.imgURL" class="thumbnail ma-2" />
+            </v-col>
+            <v-col>
+              <v-card-title>
+                {{ menu.name }}
+              </v-card-title>
+              <v-card-subtitle> ${{ menu.price }} </v-card-subtitle>
+
+              <v-card-text>
+                {{ menu.description }}
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  class="mr-5 mb-2"
+                  @click="placeOrder(menu.id)"
+                  v-if="menu.isInStock"
+                  >Order</v-btn
+                >
+                <v-btn class="mr-5 mb-2" v-else disabled>Out Of Stock</v-btn>
+              </v-card-actions>
+            </v-col>
+          </v-row>
         </v-card>
       </v-row>
       <v-row>
@@ -101,7 +114,7 @@ export default {
 
 <style scoped>
 .thumbnail {
-  width: 90%;
-  margin-left: 5%;
+  width: 12rem;
+  height: 12rem;
 }
 </style>
