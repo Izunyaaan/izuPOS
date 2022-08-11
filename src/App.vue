@@ -8,8 +8,8 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title
-        >Izu POS <img src="./assets/logo.png" style="height: 2rem"
-      /></v-toolbar-title>
+        ><img :src="logoURL" style="height: 2rem" /> &nbsp;{{ name }}
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -23,6 +23,20 @@
 export default {
   data: () => ({
     drawer: null,
+    name: "",
+    logoURL: "",
   }),
+  created() {
+    fetch(
+      "https://mocha-pos-default-rtdb.asia-southeast1.firebasedatabase.app/vendors.json"
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        this.name = data["0123"].name;
+        this.logoURL = data["0123"]["thumbnail-url"];
+      });
+  },
 };
 </script>
