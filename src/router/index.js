@@ -24,6 +24,11 @@ const routes = [
     props: true,
   },
   {
+    path: '/paymentMethod/:location',
+    component: () => import('../views/PaymentSelection.vue'),
+    props: true,
+  },
+  {
     path: '/checkout/:location',
     component: () => import('../views/CheckoutView.vue'),
     props: true,

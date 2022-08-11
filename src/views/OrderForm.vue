@@ -106,7 +106,7 @@ export default {
       });
     },
     checkout: function () {
-      this.$router.push("/checkout/" + this.location);
+      this.$router.push("/paymentMethod/" + this.location);
     },
   },
 };
